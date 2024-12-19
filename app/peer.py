@@ -208,7 +208,7 @@ class Peer:
                     full_block += block
                     received += len(block)
                 final_block += full_block
-                print(f"Downloading piece {piece}, offset {offset}, block length {block_length} from {ip_address}")
+                print(f"from {ip_address}, piece {piece}, size {block_length}")
         
         try:
             # Lưu dữ liệu của piece vào tệp tạm thời
@@ -260,7 +260,7 @@ class Peer:
                         # Nhận dữ liệu yêu cầu từ peer
                         request_length = int.from_bytes(client_socket.recv(4), "big")
                         request_id = int.from_bytes(client_socket.recv(1), "big")
-                        print(f"Received request ID: {request_id}")
+                        # print(f"Received request ID: {request_id}")
                         if request_id != 6:
                             print("Download completed. Closing connection.")
                             break
@@ -352,7 +352,7 @@ class Peer:
             # Move to the start position in the file
             file.seek(piece_start_position)
             # Read the block of data from the file
-            print(f"Reading piece {piece_index}, offset {offset}, block length {block_length}")
+            print(f"Reading piece {piece_index}, size {block_length}")
             data = file.read(block_length)
         return data
 
@@ -428,7 +428,7 @@ if __name__ == "__main__":
         # Define a function to handle user input
         def handle_user_input():
             while True:
-                command = input("\nEnter command: ")
+                command = input("\n: ")
                 command_parts = command.split()
 
                 if command.lower() == "stop":
